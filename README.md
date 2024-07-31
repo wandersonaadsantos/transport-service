@@ -1,46 +1,81 @@
-# Getting Started with Create React App
+# transport-service
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Transport services.
 
-## Available Scripts
+To build this project you will require: NodeJS - version 18 and Yarn
 
-In the project directory, you can run:
+## Commands
 
-### `yarn start`
+Running local:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+ - `yarn be4-install`: First installation of all the dependencies and setup husky
+ - `yarn be4-commit`: Run all unit test and linter before commit to ensure will not break husky or CI/CD pipeline
+ - `yarn start`: Run in develop mode
+ - `yarn build`: Clean the build folder and builds all the static assets for the project within the /build folder
+ - `yarn test`: Runs all the unit tests
+ - `yarn lint:ts`: Runs the code linter on all tsx files
+ - `yarn lint:scss`: Runs the code linter on all scss files
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Important:
 
-### `yarn test`
+I am using node-sass to enable SCSS modules, node-sass require a correctly version of Node to work properly:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+NodeJS  | Minimum node-sass version | Node Module
+--------|--------------------------|------------
+Node 20 | 9.0+                     | 115
+Node 19 | 8.0+                     | 111
+Node 18 | 8.0+                     | 108
+Node 17 | 7.0+,<8.0                | 102
+Node 16 | 6.0+                     | 93
+Node 15 | 5.0+,<7.0                | 88
+Node 14 | 4.14+,<9.0               | 83
 
-### `yarn build`
+As my machine is currently running Node 18, my node-sass is config as 8.0.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Git Hooks:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The project count with Husky and Lint Staged:
+ * `pre-commit:` Run all scripts on lint-staged.
+   * `lint-staged:` Run all linters and add to commit if something be fix.
+ * `pre-push:` Run all unit tests.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Project structure
 
-### `yarn eject`
+ - `src`: TypeScript source code of the application
+ - `public`: HTML template
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## London Transport
+### Introduction
+This project is a ReactJS application designed to provide information about London's transport system. It allows users to view transport services, check for disruptions, and search for bike hire points.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Environment Setup
+#### Prerequisites
+* Node.js `18+`
+* yarn
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Features
+#### DashBoard Page
+- Existing Services Menu:
+    - Retrieves and displays services using the TFL API.
+    - Orders services by modeName and name.
+    - Indicates if the service operates at night.
+    - Indicates if the service is currently facing disruptions.
+- Main Content Section:
+    - Initially blank.
+    - Displays disruption details when a service is selected.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+* Service Details
+- No Disruptions:
+    - Displays "No service disruptions".
+- With Disruptions:
+    - Displays "Service currently suffering disruptions" followed by a list of disruption descriptions.
+* "Cycle Hire" Option
+- Search Box:
+    - Allows users to search for bike hire points.
+    - Displays results with id, commonName, and coordinates.
+    - Displays "No bike points found for ‘X’" if no results are found.
+    - Caches results to avoid repeated API calls for the same search term.
 
-## Learn More
+## Development URLs
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Home screen: `http://localhost:3000/`

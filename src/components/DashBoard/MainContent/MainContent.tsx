@@ -1,10 +1,12 @@
 import { FC } from 'react'
 import type { Disruption } from './interface'
 import type MainProps from './interface'
+import CycleHire from './CycleHire'
 import { v4 as uuidv4 } from 'uuid'
 
 const MainContent: FC<MainProps> = ({ mainContent }) => {
-    if (!mainContent) return null
+    if (!mainContent?.id) return null
+    if (mainContent?.id === 'cyclehire') return <CycleHire />
     const disruptions = mainContent?.lineStatuses?.filter(cv => cv?.statusSeverity !== 10) as Disruption[]
     return (
         <div className='col-9'>

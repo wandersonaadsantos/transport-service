@@ -18,5 +18,14 @@
                 background-color: lighten($color: #024702, $amount: 10);
             }
         }
+
+        &.selected {
+            background-color: #f0fff0;
+            color: black;
+
+            &:hover {
+                background-color: darken($color: #f0fff0, $amount: 10);
+            }
+        }
     }
 }

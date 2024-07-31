@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 const MainContent: FC<MainProps> = ({ mainContent }) => {
     if (!mainContent) return null
-    const disruptions = mainContent.lineStatuses.filter(cv => cv.statusSeverity !== 10) as Disruption[]
+    const disruptions = mainContent?.lineStatuses?.filter(cv => cv?.statusSeverity !== 10) as Disruption[]
     return (
         <div className='col-9'>
             <section className='w-100 h-100'>

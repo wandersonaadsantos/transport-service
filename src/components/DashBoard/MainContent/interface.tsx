@@ -7,7 +7,7 @@ export interface Disruption {
 }
 
 interface MainProps {
-    mainContent: LineObj
+    mainContent?: Partial<LineObj>
 }
 
 export default MainProps

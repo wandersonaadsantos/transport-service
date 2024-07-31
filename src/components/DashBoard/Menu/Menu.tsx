@@ -3,20 +3,21 @@ import { v4 as uuidv4 } from 'uuid'
 import MenuProps from './interface'
 import s from './Menu.module.scss'
 
-const Menu: FC<MenuProps> = ({ data }) => {
-    if (!data?.length) return null
+const Menu: FC<MenuProps> = ({ data, handleSelected, selectedMenu }) => {
+    if (!data?.length || !handleSelected) return null
     return (
         <div className='col-3'>
             <section className={`w-100 pe-2 pt-3 h-100 ${s.borderEnd}`}>
                 <div className='d-grid gap-3'>
                     {data?.map?.(ele => {
-                        const { name, serviceTypes, lineStatuses } = ele
+                        const { name, serviceTypes, lineStatuses, id } = ele
                         const issues = lineStatuses.some(cv => cv.statusSeverity !== 10)
                         return (
                             <button
                                 type='button'
                                 key={uuidv4()}
-                                className={`${s.btnColor} btn-sm py-2 fw-bolder`}
+                                onClick={() => handleSelected(ele)}
+                                className={`${s.btnColor} ${selectedMenu?.id === id ? s.selected : ''} btn-sm py-2 fw-bolder`}
                             >
                                 {name}
                                 <span className='d-block mb-2'>
@@ -28,7 +29,8 @@ const Menu: FC<MenuProps> = ({ data }) => {
                     })}
                     <button
                         type='button'
-                        className={`${s.btnColor} ${s.cycleColor} btn-sm py-2 fw-bolder`}
+                        onClick={() => handleSelected({ id: 'cyclehire' })}
+                        className={`${s.btnColor} ${selectedMenu?.id === 'cyclehire' ? s.selected : s.cycleColor} btn-sm py-2 fw-bolder`}
                     >
                         Cycle Hire
                     </button>

@@ -1,12 +1,4 @@
-import type { Disruption } from '../MainContent/interface'
-
-export interface LineObj {
-    id: string
-    name: string
-    modeName: string
-    lineStatuses: Omit<Disruption, 'reason'>[]
-    serviceTypes: { name: string }[]
-}
+import type { LineObj } from '../../../store/actions/crud/interface'
 
 interface MenuProps {
     data: LineObj[]

@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import BikeProps from './interface'
+import type BikeProps from './interface'
 
 const BikeList: FC<BikeProps> = ({ data }) => {
     if (!data) return null

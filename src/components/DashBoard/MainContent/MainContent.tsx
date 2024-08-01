@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import type { Disruption } from './interface'
+import type { Disruption } from '../../../store/actions/crud/interface'
 import type MainProps from './interface'
 import CycleHire from './CycleHire'
 import { v4 as uuidv4 } from 'uuid'

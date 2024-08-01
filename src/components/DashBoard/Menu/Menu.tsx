@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import MenuProps from './interface'
+import type MenuProps from './interface'
 import s from './Menu.module.scss'
 
 const Menu: FC<MenuProps> = ({ data, handleSelected, selectedMenu }) => {

@@ -1,9 +1,4 @@
-interface Bike {
-    id: string
-    commonName: string
-    lat: number
-    lon: number
-}
+import type { Bike } from '../../../../../store/actions/crud/interface'
 
 interface BikeProps {
     data: Bike[]

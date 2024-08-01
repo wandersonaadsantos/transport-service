@@ -1,18 +1,27 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { screen, fireEvent } from '@testing-library/react'
+import { renderWithProviders } from '../../utils/testutils'
+import server from '../../utils/server'
+import { rest } from 'msw'
 import DashBoard from './'
 
 describe('Tests on component DashBoard', () => {
-    test('render with title "Transport service"', () => {
-        render(<DashBoard />)
-        expect(screen.getByText(/Transport service/i)).toBeInTheDocument()
+    test('handles error response', async () => {
+        // force msw to return error response
+        server.use(rest.get('*Line/Mode/tube,overground,dlr/Status', (_, res, ctx) => res(ctx.status(500))))
+        renderWithProviders(<DashBoard />)
+        expect(await screen.findByText('Something went wrong!!')).toBeInTheDocument()
     })
-    test('click should change the presence of the selected class', () => {
-        render(<DashBoard />)
-        expect(screen.getByText(/Cycle Hire/)).toBeInTheDocument()
-        expect(screen.getByText(/Cycle Hire/)).not.toHaveClass('selected')
-        fireEvent.click(screen.getByText(/Cycle Hire/))
-        expect(screen.getAllByText(/Cycle Hire/)?.[0]).toHaveClass('selected')
-        fireEvent.click(screen.getAllByText(/Cycle Hire/)?.[0])
-        expect(screen.getByText(/Cycle Hire/)).not.toHaveClass('selected')
+    test('render with title "Transport service"', async () => {
+        renderWithProviders(<DashBoard />)
+        expect(await screen.findByText(/Transport service/)).toBeInTheDocument()
+    })
+    test('click should change the presence of the selected class', async () => {
+        renderWithProviders(<DashBoard />)
+        expect(await screen.findByText(/Cycle Hire/)).toBeInTheDocument()
+        expect(await screen.findByText(/Cycle Hire/)).not.toHaveClass('selected')
+        fireEvent.click(await screen.findByText(/Cycle Hire/))
+        expect(await screen.findByText(/Cycle Hire/)).toHaveClass('selected')
+        fireEvent.click(await screen.findByText(/Cycle Hire/))
+        expect(await screen.findByText(/Cycle Hire/)).not.toHaveClass('selected')
     })
 })

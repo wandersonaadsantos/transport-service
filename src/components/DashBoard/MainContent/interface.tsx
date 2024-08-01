@@ -1,10 +1,4 @@
-import { LineObj } from '../Menu/interface'
-
-export interface Disruption {
-    id: number
-    reason: string
-    statusSeverity: number
-}
+import type { LineObj } from '../../../store/actions/crud/interface'
 
 interface MainProps {
     mainContent?: Partial<LineObj>

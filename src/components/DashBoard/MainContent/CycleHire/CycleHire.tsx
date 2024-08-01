@@ -1,14 +1,22 @@
-import { FC, useState } from 'react'
+import { FC, useState, useEffect } from 'react'
+import { useLazyGetBikeQuery } from '../../../../store/actions'
 import CHHeader from './CHHeader'
 import BikeList from './BikeList'
-import data from './data'
 
 const CycleHire: FC = () => {
-    const [search, setSearch] = useState('')
+    const [allValues, setAllVal] = useState({ inpSearch: '', search: '' })
+    const [getBikes, { data, isLoading, error }] = useLazyGetBikeQuery()
+    const handleVall = (obj: object) => setAllVal({ ...allValues, ...obj })
+    const { search, inpSearch } = allValues
+
+    useEffect(() => {
+        if (!!search) getBikes(search)
+    }, [search])
+
     return (
         <div className='col-9'>
-            <CHHeader setSearch={setSearch} search={search} />
-            <BikeList data={data} />
+            <CHHeader handleVall={handleVall} inpSearch={inpSearch} />
+            <BikeList data={data} isLoading={isLoading} error={error} search={search} />
         </div>
     )
 }

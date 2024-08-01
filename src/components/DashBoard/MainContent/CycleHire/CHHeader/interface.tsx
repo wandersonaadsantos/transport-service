@@ -1,6 +1,6 @@
 interface CHProps {
-    setSearch: (p: string) => void
-    search: string
+    handleVall: (p: object) => void
+    inpSearch: string
 }
 
 export default CHProps

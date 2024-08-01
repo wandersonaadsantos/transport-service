@@ -1,10 +1,14 @@
 import { FC } from 'react'
-import { v4 as uuidv4 } from 'uuid'
+import LoadingPage from '../../../../Generics/LoadingPage'
+import ErrorPage from '../../../../Generics/ErrorPage'
 import type BikeProps from './interface'
+import { v4 as uuidv4 } from 'uuid'
 
-const BikeList: FC<BikeProps> = ({ data }) => {
+const BikeList: FC<BikeProps> = ({ data, error, isLoading, search }) => {
+    if (error) return <ErrorPage err={JSON.stringify(error)} />
+    if (isLoading) return <LoadingPage />
     if (!data) return null
-    if (!data?.length) return <p className='py-5 text-center h4'>No bike point found</p>
+    if (!!search && !data?.length) return <p className='py-5 text-center h4'>No bike point found for <span className='text-danger'>{search}</span></p>
     return (
         <div className='row'>
             {data?.map?.(ele => {
